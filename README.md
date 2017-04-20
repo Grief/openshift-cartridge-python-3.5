@@ -15,13 +15,6 @@ rhc app create <app-name> https://raw.githubusercontent.com/Grief/openshift-cart
 rhc git-clone <app-name>
 ```
 
-### Changing the 'start action_hook'
-
-```
-cd <app-name>
-cd .openshift/action_hooks
-```
-
 ### Statirng your python project
 
 ##### requirements.txt
@@ -42,6 +35,13 @@ def index():
     return 'Hello World'
 
 ```
+### Changing the 'start action_hook'
+
+```
+cd <app-name>
+cd .openshift/action_hooks
+```
+
 
 ### Need update your .openshif/action_hooks/start bash file
 
