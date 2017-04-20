@@ -25,6 +25,7 @@ flask
 
 ##### app.py
 ```
+import sys
 from flask import Flask
 
 app = Flask(__name__)
@@ -32,7 +33,7 @@ app.config['SECRET_KEY'] = 'changeit'
 
 @app.route('/')
 def index():
-    return 'Hello World'
+    return sys.version
 
 ```
 ### Changing the 'start action_hook'
