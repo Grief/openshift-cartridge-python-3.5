@@ -15,7 +15,7 @@ rhc app create <app-name> https://raw.githubusercontent.com/Grief/openshift-cart
 rhc git-clone <app-name>
 ```
 
-### Statirng your python project
+### Starting your python project
 
 ##### requirements.txt
 ```
