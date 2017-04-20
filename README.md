@@ -15,7 +15,10 @@ rhc app create <app-name> https://raw.githubusercontent.com/Grief/openshift-cart
 rhc git-clone <app-name>
 ```
 
-### Starting your python project
+### Starting your python project using gunicorn + flask
+This is an example how you can config openshift for run an python web project (flask in this case) with python3.5
+If you know how the WSGI works you can port the configs for other framework like django, uwsgi, etc.
+[Link django docs with gunicorn](https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/gunicorn/)
 
 ##### requirements.txt
 ```
@@ -44,16 +47,20 @@ cd .openshift/action_hooks
 ```
 
 
-### Need update your .openshif/action_hooks/start bash file
+### Need update your .openshift/action_hooks/start bash file
 
 ```
-nohup $HOME/python/usr/bin/pip3 install -r $OPENSHIFT_REPO_DIR/requirements.txt
-cd $OPENSHIFT_REPO_DIR
-nohup $HOME/python/usr/bin/gunicorn app:app --bind=$OPENSHIFT_DIY_IP:8080 |& /usr/bin/logshifter -tag diy &
+#!/bin/bash
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
+# The logic to stop your application should be put in this script.
+if [ -z "$(ps -ef | grep gunicorn | grep -v grep)" ]
+then
+    client_result "Application is already stopped"
+else
+    kill `ps -ef | grep gunicorn | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+fi
 ```
 
-
-
-
+# Remembering this an example with flask and gunicorn, some updates are needed if you want using other libs/frameworks
 
