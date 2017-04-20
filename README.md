@@ -46,8 +46,17 @@ cd <app-name>
 cd .openshift/action_hooks
 ```
 
+### Need update your .openshif/action_hooks/start bash file
 
-### Need update your .openshift/action_hooks/start bash file
+```
+#!/bin/bash
+nohup $HOME/python/usr/bin/pip3 install -r $OPENSHIFT_REPO_DIR/requirements.txt
+cd $OPENSHIFT_REPO_DIR
+nohup $HOME/python/usr/bin/gunicorn app:app --bind=$OPENSHIFT_DIY_IP:8080 |& /usr/bin/logshifter -tag diy &
+```
+
+
+### Need update your .openshift/action_hooks/stop bash file
 
 ```
 #!/bin/bash
